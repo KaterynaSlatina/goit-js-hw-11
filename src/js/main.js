@@ -2,7 +2,7 @@ import axios from "axios";
 import { fetchPhoto } from "./fetch-api";
 import Notiflix from "notiflix";
 import { createMarkup } from "./createMarkup";
-import simpleLightbox from "simplelightbox";
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 
 const gallery = document.querySelector('.gallery');
@@ -34,7 +34,7 @@ async function searchPhoto(evt) {
             gallery.insertAdjacentHTML('beforeend', createMarkup(resp.hits));
             Notiflix.Notify.success(`Hooray! We found ${resp.totalHits} images.`);
             const lightbox = new SimpleLightbox('.gallery a');
-            lightbox.refresh();
+           
              evt.target.elements.searchQuery.value = '';
  
         } else {
