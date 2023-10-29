@@ -17,19 +17,3 @@ async function fetchPhoto(q) {
 }
 export { fetchPhoto };
 
-// const responce = await axios.get(
-//       ${URL}?key=${MY_KEY}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40
-//     );
-
-// async function fetchData(searchQuery) {
-//   try {
-//     const responce = await axios.get(
-//       ${URL}?key=${MY_KEY}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40
-//     );
-
-//     return responce.data;
-//   } catch (error) {
-//     Notiflix.Notify.failure('Щось пішло не так в "fetchData"');
-//   }
-// }
-
