@@ -35,9 +35,10 @@ async function searchPhoto(evt) {
             Notiflix.Notify.success(`Hooray! We found ${resp.totalHits} images.`);
             const lightbox = new SimpleLightbox('.gallery a');
             lightbox.refresh();
+             evt.target.elements.searchQuery.value = '';
  
         } else {
-            evt.target.elements.searchQuery.value = '';
+           
             Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
         }
         return
@@ -57,7 +58,8 @@ async function onClickLoad(evt) {
         try {
             const resp = await fetchPhoto(searchQuery, page);
 
-            if (searchQuery * 40 > resp.totalHits) {
+            if (searchQuery * 40 >= resp.totalHits) {
+                Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
                 btnLoad.classList.add('hidden');
             }
             
