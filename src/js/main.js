@@ -9,7 +9,7 @@ const gallery = document.querySelector('.gallery');
 const form = document.querySelector('.search-form');
 const btnLoad = document.querySelector('.btn');
 
-// btnLoad.classList.add('hidden');
+
 
 let page = 1;
 let searchQuery = null;
@@ -18,37 +18,34 @@ let searchQuery = null;
 
 form.addEventListener('submit', searchPhoto);
 
+btnLoad.classList.add('hidden');
+
 async function searchPhoto(evt) {
     evt.preventDefault();
     gallery.innerHTML = '';
     page = 1;
-
      searchQuery = evt.target.elements.searchQuery.value;
-    // console.log(searchQuery);
 
     try {
         const resp = await fetchPhoto(searchQuery, page);
-        // console.log(resp.hits);
-        // return resp.data;
+       
         if (resp.hits.length > 0) {
+            btnLoad.classList.remove('hidden');
             gallery.insertAdjacentHTML('beforeend', createMarkup(resp.hits));
             Notiflix.Notify.success(`Hooray! We found ${resp.totalHits} images.`);
             const lightbox = new SimpleLightbox('.gallery a');
             lightbox.refresh();
  
-           
-            
-            
         } else {
+            evt.target.elements.searchQuery.value = '';
             Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
-        
         }
-        
         return
     } catch (error) {
-        throw error 
         Notiflix.Notify.failure("Ops! Something went wrong.");
+    //    throw error
     } 
+    evt.target.elements.searchQuery.value = '';
     }
     
 
@@ -61,7 +58,7 @@ async function onClickLoad(evt) {
             const resp = await fetchPhoto(searchQuery, page);
 
             if (searchQuery * 40 > resp.totalHits) {
-                btnLoad.classList.add('visible');
+                btnLoad.classList.add('hidden');
             }
             
             gallery.insertAdjacentHTML('beforeend', createMarkup(resp.hits));
