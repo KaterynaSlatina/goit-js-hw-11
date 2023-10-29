@@ -7,7 +7,7 @@ import simpleLightbox from "simplelightbox";
 
 const gallery = document.querySelector('.gallery');
 const form = document.querySelector('.search-form');
-const btnLoad = document.querySelector('.load-more');
+const btnLoad = document.querySelector('.btn');
 
 // btnLoad.classList.add('hidden');
 
