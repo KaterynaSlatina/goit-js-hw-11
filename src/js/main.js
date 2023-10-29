@@ -56,13 +56,14 @@ btnLoad.addEventListener('click', onClickLoad);
 
 async function onClickLoad(evt) {
     page += 1;
-    // const searchQuery = evt.target.elements.searchQuery.value;
-    if (searchQuery * 40 > resp.totalHits) {
-        btnLoad.classList.add('visible');
-    } else
+
         try {
             const resp = await fetchPhoto(searchQuery, page);
 
+            if (searchQuery * 40 > resp.totalHits) {
+                btnLoad.classList.add('visible');
+            }
+            
             gallery.insertAdjacentHTML('beforeend', createMarkup(resp.hits));
         } catch (error) {
             Notiflix.Notify.failure("Ops! Something went wrong.");
