@@ -10,10 +10,10 @@ const gallery = document.querySelector('.gallery');
 const form = document.querySelector('.search-form');
 const btnLoad = document.querySelector('.load-more');
 
-btnLoad.style.visibility = 'hidden';
+btnLoad.classList.add('hidden');
 
 let page = 1;
-let q = null;
+let searchQuery = null;
 // let searchQuery = '';
 
 
@@ -37,9 +37,7 @@ async function searchPhoto(evt) {
             const lightbox = new SimpleLightbox('.gallery a');
             lightbox.refresh();
  
-            if (resp.hits.length < resp.totalHits) {
-                btnLoad.style.visibility = 'visible';
-            }
+           
             
             
         } else {
@@ -56,7 +54,7 @@ btnLoad.addEventListener('click', onClickLoad);
 
 async function onClickLoad(evt) {
     page += 1;
-    const searchQuery = evt.target.elements.searchQuery.value;
+    // const searchQuery = evt.target.elements.searchQuery.value;
 
     try {
         const resp = await fetchPhoto(searchQuery, page);
@@ -65,5 +63,9 @@ async function onClickLoad(evt) {
     } catch (error) {
         throw error 
         Notiflix.Notify.failure("Ops! Something went wrong.");
-        } 
+    } 
+
+     if (searchQuery * 40 > resp.totalHits) {
+                btnLoad.classList.add('visible');
+            }
     }
