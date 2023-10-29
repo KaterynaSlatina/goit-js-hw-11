@@ -2,6 +2,7 @@ import axios from "axios";
 import { fetchPhoto } from "./fetch-api";
 import Notiflix from "notiflix";
 import { createMarkup } from "./createMarkup";
+import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 
@@ -9,12 +10,8 @@ const gallery = document.querySelector('.gallery');
 const form = document.querySelector('.search-form');
 const btnLoad = document.querySelector('.btn');
 
-
-
 let page = 1;
 let searchQuery = null;
-
-
 
 form.addEventListener('submit', searchPhoto);
 
