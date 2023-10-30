@@ -25,7 +25,7 @@ async function searchPhoto(evt) {
 
     try {
         const resp = await fetchPhoto(searchQuery, page);
-       
+
         if (resp.hits.length > 0) {
             btnLoad.classList.remove('hidden');
             gallery.insertAdjacentHTML('beforeend', createMarkup(resp.hits));
@@ -55,7 +55,9 @@ async function onClickLoad(evt) {
         try {
             const resp = await fetchPhoto(searchQuery, page);
 
-            if (searchQuery * 40 >= resp.totalHits) {
+            const lastPage = Math.ceil(resp.totalHits / 40);
+
+            if (lastPage === page) {
                 Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
                 btnLoad.classList.add('hidden');
             }
