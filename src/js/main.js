@@ -65,7 +65,7 @@ function handleLoadMore(entries) {
 observer.observe(guard);
 async function onSearchQuery() {
 
-    fetchPhoto += 1;
+    searchQuery ++;
 
     try {
         const resp = await fetchPhoto(searchQuery, page);
