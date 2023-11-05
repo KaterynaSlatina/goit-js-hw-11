@@ -46,7 +46,7 @@ async function searchPhoto(evt) {
     }
     
 
-const guard = doc.querySelector('.guard');
+const guard = document.querySelector('.guard');
 
 const options = {
     root: null,
