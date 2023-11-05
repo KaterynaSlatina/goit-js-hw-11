@@ -8,14 +8,14 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const gallery = document.querySelector('.gallery');
 const form = document.querySelector('.search-form');
-const btnLoad = document.querySelector('.btn');
+
 
 let page = 1;
 let searchQuery = null;
 
 form.addEventListener('submit', searchPhoto);
 
-btnLoad.classList.add('hidden');
+
 
 async function searchPhoto(evt) {
     evt.preventDefault();
@@ -27,7 +27,7 @@ async function searchPhoto(evt) {
         const resp = await fetchPhoto(searchQuery, page);
 
         if (resp.hits.length > 0) {
-            btnLoad.classList.remove('hidden');
+           
             gallery.insertAdjacentHTML('beforeend', createMarkup(resp.hits));
             Notiflix.Notify.success(`Hooray! We found ${resp.totalHits} images.`);
             const lightbox = new SimpleLightbox('.gallery a');
@@ -47,24 +47,41 @@ async function searchPhoto(evt) {
     }
     
 
-btnLoad.addEventListener('click', onClickLoad);
+const guard = document.querySelector('.guard');
 
-async function onClickLoad(evt) {
-    page += 1;
+const options = {
+    root: null,
+    rootMargin: "300px",
+};
 
-        try {
-            const resp = await fetchPhoto(searchQuery, page);
+const observer = new IntersectionObserver(handleLoadMore, options);
 
-            const lastPage = Math.ceil(resp.totalHits / 40);
+function handleLoadMore(entries) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      onSearchQuery();
+    }
+  });
+}
+observer.observe(guard);
 
-            if (lastPage === page) {
-                Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
-                btnLoad.classList.add('hidden');
-            }
-            
-            gallery.insertAdjacentHTML('beforeend', createMarkup(resp.hits));
-        } catch (error) {
+async function onSearchQuery() {
+
+    fetchPhoto += 1;
+
+    try {
+        const resp = await fetchPhoto(searchQuery, page);
+        
+        if (resp.hits.length > 0) {
+             gallery.insertAdjacentHTML('beforeend', createMarkup(resp.hits));
+        }else {
+           
+            Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
+        }
+        return
+    } catch (error) {
             Notiflix.Notify.failure("Ops! Something went wrong.");
             throw error;
         }
-    }
+}
+// 
