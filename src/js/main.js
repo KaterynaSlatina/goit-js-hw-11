@@ -71,7 +71,8 @@ async function onSearchQuery() {
         const resp = await fetchPhoto(searchQuery, page);
         
         if (resp.hits.length > 0) {
-             gallery.insertAdjacentHTML('beforeend', createMarkup(resp.hits));
+            gallery.insertAdjacentHTML('beforeend', createMarkup(resp.hits));
+        
         }else {
            
             Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");

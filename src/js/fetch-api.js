@@ -18,7 +18,7 @@ async function fetchPhoto(searchQuery, page) {
         return;
     } else {
         try {
-            const resp = await axios.get(`${BASE_URL}?key=${API_KEY}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${page}`);
+            const resp = await axios.get(`${ BASE_URL }, { params }`);
             console.log(resp.data);
             return resp.data;
 
