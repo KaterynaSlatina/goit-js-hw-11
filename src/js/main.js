@@ -16,7 +16,6 @@ let searchQuery = null;
 form.addEventListener('submit', searchPhoto);
 
 
-
 async function searchPhoto(evt) {
     evt.preventDefault();
     gallery.innerHTML = '';
@@ -47,7 +46,7 @@ async function searchPhoto(evt) {
     }
     
 
-const guard = document.querySelector('.guard');
+const guard = doc.querySelector('.guard');
 
 const options = {
     root: null,
@@ -64,7 +63,6 @@ function handleLoadMore(entries) {
   });
 }
 observer.observe(guard);
-
 async function onSearchQuery() {
 
     fetchPhoto += 1;
@@ -84,4 +82,3 @@ async function onSearchQuery() {
             throw error;
         }
 }
-// 
